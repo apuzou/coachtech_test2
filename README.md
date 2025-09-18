@@ -24,30 +24,36 @@ cd coachtech_test2
 docker-compose up -d --build
 ```
 
-3. **Laravel の初期設定**
+3. **PHP コンテナに入る**
+
+```bash
+docker-compose exec php bash
+```
+
+4. **Laravel の初期設定**
 
 ```bash
 # Composerの依存関係をインストール
-docker-compose exec php composer install
+composer install
 
 # 環境設定ファイルの作成
-docker-compose exec php cp .env.example .env
+cp .env.example .env
 
 # アプリケーションキーの生成
-docker-compose exec php php artisan key:generate
+php artisan key:generate
 
 # ストレージリンクの作成
-docker-compose exec php php artisan storage:link
+php artisan storage:link
 ```
 
-4. **データベースのマイグレーション・シーディング**
+5. **データベースのマイグレーション・シーディング**
 
 ```bash
 # マイグレーション実行
-docker-compose exec php php artisan migrate
+php artisan migrate
 
 # シーダー実行（季節データと商品データの投入）
-docker-compose exec php php artisan db:seed
+php artisan db:seed
 ```
 
 ## 使用技術(実行環境)
