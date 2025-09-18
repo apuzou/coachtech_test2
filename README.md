@@ -67,7 +67,7 @@ php artisan db:seed
 
 ## ER 図
 
-![ER図](./test2_ER図.png)
+
 
 ## URL
 
