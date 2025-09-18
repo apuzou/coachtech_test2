@@ -43,6 +43,43 @@ class ProductController extends Controller
     }
 
     /**
+     * 商品登録フォームを表示
+     */
+    public function create()
+    {
+        $seasons = Season::all();
+        return view('products.create', compact('seasons'));
+    }
+
+    /**
+     * 新しい商品を登録
+     */
+    public function store(Request $request)
+    {
+        $productData = [
+            'name' => $request->name,
+            'price' => $request->price,
+            'description' => $request->description,
+        ];
+
+        // 画像がアップロードされた場合の処理
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('products', 'public');
+            $productData['image'] = $imagePath;
+        }
+
+        // 商品を作成
+        $product = Product::create($productData);
+
+        // 季節の関連付け
+        if ($request->has('seasons')) {
+            $product->seasons()->attach($request->seasons);
+        }
+
+        return redirect()->route('products.index')->with('success', '商品を登録しました。');
+    }
+
+    /**
      * 商品詳細を表示
      */
     public function show(Product $product)

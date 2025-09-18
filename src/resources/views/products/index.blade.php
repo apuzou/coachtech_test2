@@ -24,7 +24,7 @@
         </h1>
 
         <!-- 商品追加ボタン -->
-        <button class="add-product-button">+ 商品を追加</button>
+        <a href="{{ route('products.create') }}" class="add-product-button">+ 商品を追加</a>
 
         <!-- サイドバー -->
         <aside class="sidebar">

@@ -21,6 +21,12 @@ Route::get('/', function () {
 // 商品一覧ページ
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
 
+// 商品登録ページ
+Route::get('/products/register', [ProductController::class, 'create'])->name('products.create');
+
+// 商品登録処理
+Route::post('/products/register', [ProductController::class, 'store'])->name('products.store');
+
 // 商品詳細ページ
 Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
 
