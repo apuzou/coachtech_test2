@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\Season;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -38,5 +40,71 @@ class ProductController extends Controller
         $products = $query->paginate(6);
 
         return view('products.index', compact('products'));
+    }
+
+    /**
+     * 商品詳細を表示
+     */
+    public function show(Product $product)
+    {
+        $product->load('seasons');
+
+        $seasons = Season::all();
+
+        return view('products.show', compact('product', 'seasons'));
+    }
+
+    /**
+     * 商品情報を更新
+     */
+    public function update(Request $request, Product $product)
+    {
+        // 商品情報を更新
+        $updateData = [
+            'name' => $request->name,
+            'price' => $request->price,
+            'description' => $request->description,
+        ];
+
+        // 画像がアップロードされた場合の処理
+        if ($request->hasFile('image')) {
+            // 古い画像を削除
+            if ($product->image) {
+                Storage::disk('public')->delete($product->image);
+            }
+
+            // 新しい画像を保存
+            $imagePath = $request->file('image')->store('products', 'public');
+            $updateData['image'] = $imagePath;
+        }
+
+        $product->update($updateData);
+
+        // 季節の関連付けを更新
+        if ($request->has('seasons')) {
+            $product->seasons()->sync($request->seasons);
+        } else {
+            $product->seasons()->detach();
+        }
+
+        return redirect()->route('products.index')->with('success', '商品情報を更新しました。');
+    }
+
+    /**
+     * 商品を削除
+     */
+    public function destroy(Product $product)
+    {
+        // 関連する画像を削除
+        if ($product->image) {
+            Storage::disk('public')->delete($product->image);
+        }
+
+        // 季節との関連を削除
+        $product->seasons()->detach();
+
+        $product->delete();
+
+        return redirect()->route('products.index')->with('success', '商品を削除しました。');
     }
 }

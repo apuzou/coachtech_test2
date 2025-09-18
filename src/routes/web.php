@@ -20,3 +20,12 @@ Route::get('/', function () {
 
 // 商品一覧ページ
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
+
+// 商品詳細ページ
+Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
+
+// 商品更新
+Route::put('/products/{product}', [ProductController::class, 'update'])->name('products.update');
+
+// 商品削除
+Route::delete('/products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');

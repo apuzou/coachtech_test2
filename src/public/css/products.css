@@ -15,6 +15,7 @@ body {
     line-height: 1.6;
 }
 
+/* ヘッダー */
 .header {
     background-color: #fff;
     padding: 20px 0;
@@ -29,6 +30,7 @@ body {
     margin-left: 40px;
 }
 
+/* メインコンテナ グリッドレイアウト*/
 .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -49,6 +51,7 @@ h1 {
     text-align: left;
 }
 
+/* 商品追加ボタン */
 .add-product-button {
     grid-row: 1;
     grid-column: 2;
@@ -68,17 +71,17 @@ h1 {
     background-color: #e6850e;
 }
 
+/* サイドバー */
 .sidebar {
     grid-row: 2;
     grid-column: 1;
-    background-color: #fff;
     padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
     height: fit-content;
     width: 300px;
 }
 
+/* 検索フォーム */
 .search-form {
     margin-bottom: 30px;
 }
@@ -94,12 +97,12 @@ h1 {
 
 .search-input:focus {
     outline: none;
-    border-color: #ff9500;
+    border-color: #f9c64f;
 }
 
 .search-button {
     width: 100%;
-    background-color: #ffeb3b;
+    background-color: #f9c64f;
     color: #333;
     border: none;
     padding: 12px;
@@ -111,9 +114,10 @@ h1 {
 }
 
 .search-button:hover {
-    background-color: #ffc107;
+    background-color: #f9af02;
 }
 
+/* ソートセクション */
 .sort-section {
     margin-bottom: 20px;
 }
@@ -138,9 +142,55 @@ h1 {
 
 .sort-select:focus {
     outline: none;
-    border-color: #ff9500;
+    border-color: #f9c64f;
 }
 
+/* ソートタグのスタイル */
+.sort-tag {
+    display: inline-flex;
+    align-items: center;
+    background-color: #f8f9fa;
+    border: 1px solid #f9c64f;
+    border-radius: 16px;
+    padding: 6px 12px;
+    margin-top: 12px;
+    font-size: 14px;
+    color: #333;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.sort-tag-text {
+    margin-right: 8px;
+    font-weight: 500;
+}
+
+.sort-tag-remove {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    background-color: #f8f9fa;
+    border: 1px solid #f9c64f;
+    border-radius: 50%;
+    color: #f9c64f;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 1;
+    transition: background-color 0.2s;
+}
+
+.sort-tag-remove:hover {
+    background-color: #f9c64f;
+    color: #000;
+}
+
+.sort-tag-remove:active {
+    transform: scale(0.95);
+}
+
+/* メインコンテンツ */
 .main-content {
     grid-row: 2;
     grid-column: 2;
@@ -153,6 +203,12 @@ h1 {
     grid-template-columns: repeat(3, 1fr);
     gap: 10px;
     margin-bottom: 40px;
+}
+
+.product-card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
 }
 
 .product-card {
@@ -194,6 +250,7 @@ h1 {
     text-align: right;
 }
 
+/* ページネーション */
 .pagination {
     display: flex;
     justify-content: center;
@@ -207,7 +264,7 @@ h1 {
     padding: 8px 12px;
     text-decoration: none;
     color: #333;
-    font-size: 16px;
+    font-size: 14px;
     border-radius: 50%;
     min-width: 40px;
     text-align: center;
@@ -223,9 +280,8 @@ h1 {
 }
 
 .pagination .active {
-    background-color: #ffeb3b;
-    color: #333;
-    font-weight: bold;
+    background-color: #f9c64f;
+    color: #fff;
 }
 
 .pagination .disabled {
