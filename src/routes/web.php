@@ -31,7 +31,10 @@ Route::post('/products/register', [ProductController::class, 'store'])->name('pr
 Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
 
 // 商品更新
-Route::put('/products/{product}', [ProductController::class, 'update'])->name('products.update');
+Route::put('/products/{product}/update', [ProductController::class, 'update'])->name('products.update');
 
 // 商品削除
-Route::delete('/products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
+Route::delete('/products/{product}/delete', [ProductController::class, 'destroy'])->name('products.destroy');
+
+// 商品検索
+Route::get('/products/search', [ProductController::class, 'search'])->name('products.search');

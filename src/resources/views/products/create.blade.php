@@ -15,8 +15,10 @@
 
     <!-- メインコンテナ -->
     <div class="register-container">
+
         <h1>商品登録</h1>
 
+        <!-- 商品登録フォーム -->
         <form method="POST" action="{{ route('products.store') }}" enctype="multipart/form-data">
             @csrf
 

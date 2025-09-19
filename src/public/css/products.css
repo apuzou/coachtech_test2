@@ -30,31 +30,38 @@ body {
     margin-left: 40px;
 }
 
-/* メインコンテナ グリッドレイアウト*/
+/* メインコンテナ */
 .container {
-    max-width: 1200px;
+    max-width: 90%;
     margin: 0 auto;
     padding: 20px 10px 40px;
-    display: grid;
-    grid-template-rows: auto 1fr;
-    grid-template-columns: 1fr auto;
-    gap: 20px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* 上部セクション（h1 + ボタン） */
+.top-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* 下部セクション（サイドバー + メイン） */
+.bottom-section {
+    display: flex;
+    gap: 20px;
 }
 
 h1 {
-    grid-row: 1;
-    grid-column: 1;
     font-size: 24px;
     font-weight: bold;
     color: #333;
-    margin: 0;
-    text-align: left;
+    margin-left: 40px;
 }
 
 /* 商品追加ボタン */
 .add-product-button {
-    grid-row: 1;
-    grid-column: 2;
     background-color: #ff9500;
     color: #fff;
     border: none;
@@ -64,7 +71,8 @@ h1 {
     font-weight: bold;
     cursor: pointer;
     transition: background-color 0.3s;
-    justify-self: end;
+    text-decoration: none;
+    white-space: nowrap;
 }
 
 .add-product-button:hover {
@@ -73,12 +81,11 @@ h1 {
 
 /* サイドバー */
 .sidebar {
-    grid-row: 2;
-    grid-column: 1;
+    width: 300px;
     padding: 30px;
     border-radius: 20px;
     height: fit-content;
-    width: 300px;
+    flex-shrink: 0;
 }
 
 /* 検索フォーム */
@@ -192,8 +199,7 @@ h1 {
 
 /* メインコンテンツ */
 .main-content {
-    grid-row: 2;
-    grid-column: 2;
+    flex: 1;
     display: flex;
     flex-direction: column;
 }

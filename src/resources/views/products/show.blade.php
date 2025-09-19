@@ -22,6 +22,7 @@
 
     <!-- メインコンテナ -->
     <div class="detail-container">
+        <!-- 商品編集フォーム -->
         <form method="POST" action="{{ route('products.update', $product) }}" enctype="multipart/form-data" class="product-form">
             @csrf
             @method('PUT')
