@@ -77,8 +77,7 @@ class ProductController extends Controller
 
         // 画像がアップロードされた場合の処理
         if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('products', 'public');
-            $productData['image'] = $imagePath;
+            $productData['image'] = $request->file('image')->store('products', 'public');
         }
 
         // 商品を作成
@@ -127,8 +126,7 @@ class ProductController extends Controller
             }
 
             // 新しい画像を保存
-            $imagePath = $request->file('image')->store('products', 'public');
-            $updateData['image'] = $imagePath;
+            $updateData['image'] = $request->file('image')->store('products', 'public');
         }
 
         // 商品情報を更新

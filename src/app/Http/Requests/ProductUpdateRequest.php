@@ -54,7 +54,9 @@ class ProductUpdateRequest extends FormRequest
         $validator->after(function ($validator) {
             // 商品画像の必須チェック
             $product = $this->route('product');
-            if (!$this->hasFile('image') && !$product->image) {
+            if ($this->hasFile('image') || $product->image) {
+                // 画像が存在する場合は何もしない
+            } else {
                 $validator->errors()->add('image', '商品画像を登録してください');
             }
         });
