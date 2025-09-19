@@ -8,6 +8,11 @@
     <link rel="stylesheet" href="{{ asset('css/show.css') }}">
 </head>
 <body>
+    @php
+        // 検索状態を判定
+        $isFromSearch = request()->route()->getName() === 'products.search' || request('from') === 'search';
+    @endphp
+
     <!-- ヘッダー -->
     <header class="header">
         <div class="logo">mogitate</div>
@@ -16,6 +21,10 @@
     <!-- パンくずナビ -->
     <div class="breadcrumb">
         <a href="{{ route('products.index') }}">商品一覧</a>
+        @if($isFromSearch)
+            <span>></span>
+            <a href="{{ route('products.search', request()->only(['search', 'sort', 'page'])) }}">検索結果</a>
+        @endif
         <span>></span>
         <span>{{ $product->name }}</span>
     </div>
@@ -80,7 +89,7 @@
                 <!-- ボタンエリア -->
                 <div class="button-area">
                     <div class="center-buttons">
-                        <a href="{{ route('products.index') }}" class="back-button">戻る</a>
+                        <a href="{{ $isFromSearch ? route('products.search', request()->only(['search', 'sort', 'page'])) : route('products.index', request()->only(['page'])) }}" class="back-button">戻る</a>
                         <button type="submit" class="save-button">変更を保存</button>
                     </div>
                 </div>

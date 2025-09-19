@@ -17,7 +17,7 @@
         <div class="top-section">
             <h1>
                 @if(request('search'))
-                    "{{ request('search') }}"の商品一覧
+                    "{{ request('search') }}"の検索結果
                 @else
                     商品一覧
                 @endif
@@ -31,7 +31,13 @@
             <!-- サイドバー -->
             <aside class="sidebar">
                 <!-- 検索フォーム -->
-                <form method="GET" action="{{ route('products.index') }}" class="search-form">
+                <form method="GET" action="{{ route('products.search') }}" class="search-form">
+                    @if(request('sort'))
+                        <input type="hidden" name="sort" value="{{ request('sort') }}">
+                    @endif
+                    @if(request('page'))
+                        <input type="hidden" name="page" value="{{ request('page') }}">
+                    @endif
                     <input 
                         type="text" 
                         name="search" 
@@ -45,9 +51,12 @@
                 <!-- ソートセクション -->
                 <div class="sort-section">
                     <label class="sort-label">価格順で表示</label>
-                    <form method="GET" action="{{ route('products.index') }}" id="sort-form">
+                    <form method="GET" action="{{ route('products.search') }}" id="sort-form">
                         @if(request('search'))
                             <input type="hidden" name="search" value="{{ request('search') }}">
+                        @endif
+                        @if(request('page'))
+                            <input type="hidden" name="page" value="{{ request('page') }}">
                         @endif
                         <select name="sort" class="sort-select" onchange="document.getElementById('sort-form').submit()">
                             <option value="default">価格で並べ替え</option>
@@ -69,7 +78,7 @@
                                         @break
                                 @endswitch
                             </span>
-                            <a href="{{ route('products.index', request()->except('sort')) }}" class="sort-tag-remove">
+                            <a href="{{ route('products.search', request()->only(['search', 'page'])) }}" class="sort-tag-remove">
                                 ×
                             </a>
                         </div>
@@ -79,9 +88,10 @@
 
             <!-- メインコンテンツ -->
             <main class="main-content">
+                <!-- 商品グリッド -->
                 <div class="products-grid">
                     @forelse($products as $product)
-                        <a href="{{ route('products.show', $product) }}" class="product-card-link">
+                        <a href="{{ route('products.show', array_merge(['product' => $product, 'from' => request()->route()->getName() === 'products.search' ? 'search' : 'list'], request()->only(['search', 'sort', 'page']))) }}" class="product-card-link">
                             <div class="product-card">
                                 <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" class="product-image">
                                 <div class="product-info">

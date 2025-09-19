@@ -21,6 +21,9 @@ Route::get('/', function () {
 // 商品一覧ページ
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
 
+// 商品検索
+Route::get('/products/search', [ProductController::class, 'search'])->name('products.search');
+
 // 商品登録ページ
 Route::get('/products/register', [ProductController::class, 'create'])->name('products.create');
 
@@ -35,6 +38,3 @@ Route::put('/products/{product}/update', [ProductController::class, 'update'])->
 
 // 商品削除
 Route::delete('/products/{product}/delete', [ProductController::class, 'destroy'])->name('products.destroy');
-
-// 商品検索
-Route::get('/products/search', [ProductController::class, 'search'])->name('products.search');

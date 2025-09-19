@@ -11,39 +11,15 @@ class ProductController extends Controller
 {
     /**
      * 商品一覧を表示
-     * 検索・ソート機能付き、6件ずつページネーション
      */
-    public function index(Request $request)
+    public function index()
     {
-        $query = Product::query();
-
-        // 商品名での検索
-        if ($request->filled('search')) {
-            $query->where('name', 'like', '%' . $request->search . '%');
-        }
-
-        // 価格順でのソート
-        $sortBy = $request->get('sort', 'default');
-        switch ($sortBy) {
-            case 'price_ascending':
-                $query->orderBy('price', 'asc');
-                break;
-            case 'price_descending':
-                $query->orderBy('price', 'desc');
-                break;
-            default:
-                $query->orderBy('id', 'asc');
-                break;
-        }
-
-        // ページネーション（6件ずつ）
-        $products = $query->paginate(6);
-
+        $products = Product::orderBy('id', 'asc')->paginate(6);
         return view('products.index', compact('products'));
     }
 
     /**
-     * 商品検索ページを表示
+     * 商品検索・ソート機能
      */
     public function search(Request $request)
     {
@@ -69,9 +45,9 @@ class ProductController extends Controller
         }
 
         // ページネーション（6件ずつ）
-        $products = $query->paginate(6);
+        $products = $query->paginate(6)->withPath(route('products.search'))->withQueryString();
 
-        return view('products.search', compact('products'));
+        return view('products.index', compact('products'));
     }
 
     /**
@@ -147,6 +123,7 @@ class ProductController extends Controller
             $updateData['image'] = $imagePath;
         }
 
+        // 商品情報を更新
         $product->update($updateData);
 
         // 季節の関連付けを更新
@@ -172,6 +149,7 @@ class ProductController extends Controller
         // 季節との関連を削除
         $product->seasons()->detach();
 
+        // 商品を削除
         $product->delete();
 
         return redirect()->route('products.index')->with('success', '商品を削除しました。');
