@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\Season;
+use App\Http\Requests\ProductUpdateRequest;
+use App\Http\Requests\ProductCreateRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -62,12 +64,15 @@ class ProductController extends Controller
     /**
      * 新しい商品を登録
      */
-    public function store(Request $request)
+    public function store(ProductCreateRequest $request)
     {
+        // バリデーション済みのデータを取得
+        $validatedData = $request->validated();
+
         $productData = [
-            'name' => $request->name,
-            'price' => $request->price,
-            'description' => $request->description,
+            'name' => $validatedData['name'],
+            'price' => $validatedData['price'],
+            'description' => $validatedData['description'],
         ];
 
         // 画像がアップロードされた場合の処理
@@ -81,7 +86,7 @@ class ProductController extends Controller
 
         // 季節の関連付け
         if ($request->has('seasons')) {
-            $product->seasons()->attach($request->seasons);
+            $product->seasons()->attach($validatedData['seasons']);
         }
 
         return redirect()->route('products.index')->with('success', '商品を登録しました。');
@@ -102,13 +107,16 @@ class ProductController extends Controller
     /**
      * 商品情報を更新
      */
-    public function update(Request $request, Product $product)
+    public function update(ProductUpdateRequest $request, Product $product)
     {
+        // バリデーション済みのデータを取得
+        $validatedData = $request->validated();
+
         // 商品情報を更新
         $updateData = [
-            'name' => $request->name,
-            'price' => $request->price,
-            'description' => $request->description,
+            'name' => $validatedData['name'],
+            'price' => $validatedData['price'],
+            'description' => $validatedData['description'],
         ];
 
         // 画像がアップロードされた場合の処理
@@ -127,11 +135,7 @@ class ProductController extends Controller
         $product->update($updateData);
 
         // 季節の関連付けを更新
-        if ($request->has('seasons')) {
-            $product->seasons()->sync($request->seasons);
-        } else {
-            $product->seasons()->detach();
-        }
+        $product->seasons()->sync($validatedData['seasons']);
 
         return redirect()->route('products.index')->with('success', '商品情報を更新しました。');
     }

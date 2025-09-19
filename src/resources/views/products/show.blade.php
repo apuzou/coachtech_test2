@@ -13,6 +13,7 @@
         $isFromSearch = request()->route()->getName() === 'products.search' || request('from') === 'search';
     @endphp
 
+
     <!-- ヘッダー -->
     <header class="header">
         <div class="logo">mogitate</div>
@@ -49,6 +50,11 @@
                         </label>
                         <span class="file-name" id="file-name">{{ basename($product->image) }}</span>
                     </div>
+                    @if($errors->has('image'))
+                        @foreach($errors->get('image') as $error)
+                            <div class="error-message">{{ $error }}</div>
+                        @endforeach
+                    @endif
                 </div>
 
                 <!-- 商品情報 -->
@@ -56,13 +62,21 @@
                     <!-- 商品名 -->
                     <div class="form-group">
                         <label for="name" class="form-label">商品名</label>
-                        <input type="text" name="name" id="name" value="{{ $product->name }}" class="form-input" required>
+                        <input type="text" name="name" id="name" value="{{ old('name', $product->name) }}" class="form-input">
+                        @error('name')
+                            <div class="error-message">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <!-- 値段 -->
                     <div class="form-group">
                         <label for="price" class="form-label">値段</label>
-                        <input type="text" name="price" id="price" value="{{ $product->price }}" class="form-input" required>
+                        <input type="text" name="price" id="price" value="{{ old('price', $product->price) }}" class="form-input">
+                        @if($errors->has('price'))
+                            @foreach($errors->get('price') as $error)
+                                <div class="error-message">{{ $error }}</div>
+                            @endforeach
+                        @endif
                     </div>
 
                     <!-- 季節 -->
@@ -72,26 +86,34 @@
                             @foreach($seasons as $season)
                                 <label>
                                     <input type="checkbox" name="seasons[]" value="{{ $season->id }}" 
-                                           {{ $product->seasons->contains($season->id) ? 'checked' : '' }}>
+                                           {{ in_array($season->id, old('seasons', $product->seasons->pluck('id')->toArray())) ? 'checked' : '' }}>
                                     {{ $season->name }}
                                 </label>
                             @endforeach
                         </div>
+                        @error('seasons')
+                            <div class="error-message">{{ $message }}</div>
+                        @enderror
                     </div>
                 </div>
 
                 <!-- 商品説明 -->
                 <div class="form-group description">
                     <label for="description" class="form-label">商品説明</label>
-                    <textarea name="description" id="description" class="form-textarea" rows="6" required>{{ $product->description }}</textarea>
+                    <textarea name="description" id="description" class="form-textarea" rows="6">{{ old('description', $product->description) }}</textarea>
+                    @if($errors->has('description'))
+                        @foreach($errors->get('description') as $error)
+                            <div class="error-message">{{ $error }}</div>
+                        @endforeach
+                    @endif
                 </div>
+            </div>
 
-                <!-- ボタンエリア -->
-                <div class="button-area">
-                    <div class="center-buttons">
-                        <a href="{{ $isFromSearch ? route('products.search', request()->only(['search', 'sort', 'page'])) : route('products.index', request()->only(['page'])) }}" class="back-button">戻る</a>
-                        <button type="submit" class="save-button">変更を保存</button>
-                    </div>
+            <!-- ボタンエリア -->
+            <div class="button-area">
+                <div class="center-buttons">
+                    <a href="{{ $isFromSearch ? route('products.search', request()->only(['search', 'sort', 'page'])) : route('products.index', request()->only(['page'])) }}" class="back-button">戻る</a>
+                    <button type="submit" class="save-button">変更を保存</button>
                 </div>
             </div>
         </form>

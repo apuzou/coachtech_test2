@@ -25,13 +25,21 @@
             <!-- 商品名 -->
             <div class="form-group">
                 <label for="name" class="form-label required">商品名</label>
-                <input type="text" name="name" id="name" placeholder="商品名を入力" class="form-input" required>
+                <input type="text" name="name" id="name" placeholder="商品名を入力" value="{{ old('name') }}" class="form-input">
+                @error('name')
+                    <div class="error-message">{{ $message }}</div>
+                @enderror
             </div>
 
             <!-- 値段 -->
             <div class="form-group">
                 <label for="price" class="form-label required">値段</label>
-                <input type="text" name="price" id="price" placeholder="値段を入力" class="form-input" required>
+                <input type="text" name="price" id="price" placeholder="値段を入力" value="{{ old('price') }}" class="form-input">
+                @if($errors->has('price'))
+                    @foreach($errors->get('price') as $error)
+                        <div class="error-message">{{ $error }}</div>
+                    @endforeach
+                @endif
             </div>
 
             <!-- 商品画像 -->
@@ -44,11 +52,16 @@
                     <div class="file-input-container">
                         <label for="image" class="file-input-label">
                             ファイルを選択
-                            <input type="file" name="image" id="image" class="file-input" accept="image/*" onchange="handleFileSelect(event)" required>
+                            <input type="file" name="image" id="image" class="file-input" accept="image/*" onchange="handleFileSelect(event)">
                         </label>
                         <span class="file-name" id="file-name">選択されていません</span>
                     </div>
                 </div>
+                @if($errors->has('image'))
+                    @foreach($errors->get('image') as $error)
+                        <div class="error-message">{{ $error }}</div>
+                    @endforeach
+                @endif
             </div>
 
             <!-- 季節 -->
@@ -60,17 +73,26 @@
                 <div class="seasons">
                     @foreach($seasons as $season)
                         <label>
-                            <input type="checkbox" name="seasons[]" value="{{ $season->id }}">
+                            <input type="checkbox" name="seasons[]" value="{{ $season->id }}" 
+                                   {{ in_array($season->id, old('seasons', [])) ? 'checked' : '' }}>
                             {{ $season->name }}
                         </label>
                     @endforeach
                 </div>
+                @error('seasons')
+                    <div class="error-message">{{ $message }}</div>
+                @enderror
             </div>
 
             <!-- 商品説明 -->
             <div class="form-group">
                 <label for="description" class="form-label required">商品説明</label>
-                <textarea name="description" id="description" placeholder="商品の説明を入力" class="form-textarea" rows="6" required></textarea>
+                <textarea name="description" id="description" placeholder="商品の説明を入力" class="form-textarea" rows="6">{{ old('description') }}</textarea>
+                @if($errors->has('description'))
+                    @foreach($errors->get('description') as $error)
+                        <div class="error-message">{{ $error }}</div>
+                    @endforeach
+                @endif
             </div>
 
             <!-- ボタンエリア -->

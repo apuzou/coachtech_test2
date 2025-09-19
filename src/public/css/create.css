@@ -158,6 +158,25 @@ h1 {
     accent-color: #f9c64f;
 }
 
+/* エラーメッセージのスタイル */
+.error-message {
+    color: #dc3545;
+    font-size: 14px;
+    margin-top: 5px;
+    display: block;
+}
+
+/* エラー時の入力フィールドのスタイル */
+.form-input.error,
+.form-textarea.error {
+    border-color: #dc3545;
+}
+
+/* エラー時のチェックボックスのスタイル */
+.seasons input[type="checkbox"]:invalid {
+    border-color: #dc3545;
+}
+
 /* テキストエリア */
 .form-textarea {
     padding: 12px 16px;

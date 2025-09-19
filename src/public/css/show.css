@@ -240,8 +240,8 @@
 /* 削除フォーム */
 .delete-form-overlay {
     position: absolute;
-    bottom: 100px;
-    right: 60px;
+    bottom: 60px;
+    right: 80px;
 }
 
 .delete-button {
@@ -265,4 +265,23 @@
 .delete-button svg {
     width: 20px;
     height: 20px;
+}
+
+/* エラーメッセージのスタイル */
+.error-message {
+    color: #dc3545;
+    font-size: 14px;
+    margin-top: 5px;
+    display: block;
+}
+
+/* エラー時の入力フィールドのスタイル */
+.form-input.error,
+.form-textarea.error {
+    border-color: #dc3545;
+}
+
+/* エラー時のチェックボックスのスタイル */
+.seasons input[type="checkbox"]:invalid {
+    border-color: #dc3545;
 }
