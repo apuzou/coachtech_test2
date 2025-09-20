@@ -18,7 +18,7 @@ class CreateProductSeasonTable extends Migration
             $table->unsignedBigInteger('product_id');
             $table->unsignedBigInteger('season_id');
             $table->timestamps();
-            
+
             $table->foreign('product_id')->references('id')->on('products');
             $table->foreign('season_id')->references('id')->on('seasons');
         });

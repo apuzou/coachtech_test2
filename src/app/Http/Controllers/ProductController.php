@@ -46,7 +46,7 @@ class ProductController extends Controller
                 break;
         }
 
-        // ページネーション（6件ずつ）
+        // 検索条件を保持したページネーション（6件ずつ）
         $products = $query->paginate(6)->withPath(route('products.search'))->withQueryString();
 
         return view('products.index', compact('products'));
@@ -66,7 +66,6 @@ class ProductController extends Controller
      */
     public function store(ProductCreateRequest $request)
     {
-        // バリデーション済みのデータを取得
         $validatedData = $request->validated();
 
         $productData = [
@@ -80,7 +79,6 @@ class ProductController extends Controller
             $productData['image'] = $request->file('image')->store('products', 'public');
         }
 
-        // 商品を作成
         $product = Product::create($productData);
 
         // 季節の関連付け
@@ -108,10 +106,8 @@ class ProductController extends Controller
      */
     public function update(ProductUpdateRequest $request, Product $product)
     {
-        // バリデーション済みのデータを取得
         $validatedData = $request->validated();
 
-        // 商品情報を更新
         $updateData = [
             'name' => $validatedData['name'],
             'price' => $validatedData['price'],
@@ -129,10 +125,9 @@ class ProductController extends Controller
             $updateData['image'] = $request->file('image')->store('products', 'public');
         }
 
-        // 商品情報を更新
         $product->update($updateData);
 
-        // 季節の関連付けを更新
+        // 季節の関連付けを更新（古い関連を削除して新しい関連を追加）
         $product->seasons()->sync($validatedData['seasons']);
 
         return redirect()->route('products.index')->with('success', '商品情報を更新しました。');
@@ -143,15 +138,12 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        // 関連する画像を削除
         if ($product->image) {
             Storage::disk('public')->delete($product->image);
         }
 
-        // 季節との関連を削除
         $product->seasons()->detach();
 
-        // 商品を削除
         $product->delete();
 
         return redirect()->route('products.index')->with('success', '商品を削除しました。');

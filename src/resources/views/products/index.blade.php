@@ -33,18 +33,18 @@
                 <!-- 検索フォーム -->
                 <form method="GET" action="{{ route('products.search') }}" class="search-form">
                     @if(request('sort'))
-                        <input type="hidden" name="sort" value="{{ request('sort') }}">
+                        <input type="hidden" name="sort" value="{{ request('sort') }}"> <!-- ソート条件を保持 -->
                     @endif
                     @if(request('page'))
-                        <input type="hidden" name="page" value="{{ request('page') }}">
+                        <input type="hidden" name="page" value="{{ request('page') }}"> <!-- ページ番号を保持 -->
                     @endif
                     <input 
                         type="text" 
                         name="search" 
                         placeholder="商品名で検索" 
-                        value="{{ request('search') }}"
+                        value="{{ request('search') }}" 
                         class="search-input"
-                    >
+                    > <!-- 検索キーワードを保持 -->
                     <button type="submit" class="search-button">検索</button>
                 </form>
 
@@ -53,10 +53,10 @@
                     <label class="sort-label">価格順で表示</label>
                     <form method="GET" action="{{ route('products.search') }}" id="sort-form">
                         @if(request('search'))
-                            <input type="hidden" name="search" value="{{ request('search') }}">
+                            <input type="hidden" name="search" value="{{ request('search') }}"> <!-- 検索条件を保持 -->
                         @endif
                         @if(request('page'))
-                            <input type="hidden" name="page" value="{{ request('page') }}">
+                            <input type="hidden" name="page" value="{{ request('page') }}"> <!-- ページ番号を保持 -->
                         @endif
                         <select name="sort" class="sort-select" onchange="document.getElementById('sort-form').submit()">
                             <option value="default">価格で並べ替え</option>
@@ -78,9 +78,9 @@
                                         @break
                                 @endswitch
                             </span>
-                            <a href="{{ route('products.search', request()->only(['search', 'page'])) }}" class="sort-tag-remove">
-                                ×
-                            </a>
+                        <a href="{{ route('products.search', request()->only(['search', 'page'])) }}" class="sort-tag-remove"> <!-- ソート条件のみリセット -->
+                            ×
+                        </a>
                         </div>
                     @endif
                 </div>
@@ -91,7 +91,7 @@
                 <!-- 商品グリッド -->
                 <div class="products-grid">
                     @forelse($products as $product)
-                        <a href="{{ route('products.show', array_merge(['product' => $product, 'from' => request()->route()->getName() === 'products.search' ? 'search' : 'list'], request()->only(['search', 'sort', 'page']))) }}" class="product-card-link">
+                        <a href="{{ route('products.show', array_merge(['product' => $product, 'from' => request()->route()->getName() === 'products.search' ? 'search' : 'list'], request()->only(['search', 'sort', 'page']))) }}" class="product-card-link"> <!-- 検索・ソート・ページ条件を詳細ページに引き継ぎ -->
                             <div class="product-card">
                                 <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" class="product-image">
                                 <div class="product-info">

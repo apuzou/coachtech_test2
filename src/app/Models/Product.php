@@ -11,8 +11,6 @@ class Product extends Model
 
     /**
      * 一括代入可能な属性
-     *
-     * @var array<int, string>
      */
     protected $fillable = [
         'name',

@@ -92,9 +92,9 @@ class ProductSeeder extends Seeder
         foreach ($products as $productData) {
             $seasons = $productData['seasons'];
             unset($productData['seasons']);
-            
+
             $product = Product::create($productData);
-            
+
             // 季節との関連付け
             foreach ($seasons as $seasonName) {
                 $season = Season::where('name', $seasonName)->first();

@@ -57,7 +57,7 @@ class ProductUpdateRequest extends FormRequest
             if ($this->hasFile('image') || $product->image) {
                 // 画像が存在する場合は何もしない
             } else {
-                $validator->errors()->add('image', '商品画像を登録してください');
+                $validator->errors()->add('image', '商品画像を登録してください'); // 新規画像も既存画像もない場合にエラーを追加
             }
         });
     }
