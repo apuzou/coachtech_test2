@@ -61,7 +61,7 @@
                         <select name="sort" class="sort-select" onchange="document.getElementById('sort-form').submit()">
                             <option value="default">価格で並べ替え</option>
                             <option value="price_descending" {{ request('sort') == 'price_descending' ? 'selected' : '' }}>価格の高い順</option>
-                            <option value="price_ascending" {{ request('sort') == 'price_ascending' ? 'selected' : '' }}>価格の安い順</option>
+                            <option value="price_ascending" {{ request('sort') == 'price_ascending' ? 'selected' : '' }}>価格の低い順</option>
                         </select>
                     </form>
 
@@ -74,7 +74,7 @@
                                         高い順に表示
                                         @break
                                     @case('price_ascending')
-                                        安い順に表示
+                                        低い順に表示
                                         @break
                                 @endswitch
                             </span>
