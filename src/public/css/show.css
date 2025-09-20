@@ -237,7 +237,7 @@
     background-color: #f9af02;
 }
 
-/* 削除フォーム */
+/* 削除ボタン */
 .delete-form-overlay {
     position: absolute;
     bottom: 60px;
@@ -267,7 +267,7 @@
     height: 20px;
 }
 
-/* エラーメッセージのスタイル */
+/* エラーメッセージ */
 .error-message {
     color: #dc3545;
     font-size: 14px;
@@ -275,13 +275,11 @@
     display: block;
 }
 
-/* エラー時の入力フィールドのスタイル */
 .form-input.error,
 .form-textarea.error {
     border-color: #dc3545;
 }
 
-/* エラー時のチェックボックスのスタイル */
 .seasons input[type="checkbox"]:invalid {
     border-color: #dc3545;
 }

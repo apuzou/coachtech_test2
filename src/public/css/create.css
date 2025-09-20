@@ -23,7 +23,6 @@ h1 {
     margin-bottom: 24px;
 }
 
-/* フォームラベル */
 .form-label {
     font-size: 16px;
     color: #333;
@@ -41,7 +40,6 @@ h1 {
     font-weight: normal;
 }
 
-/* フォーム入力 */
 .form-input {
     padding: 12px 16px;
     border: 1px solid #dee2e6;
@@ -122,20 +120,13 @@ h1 {
     white-space: nowrap;
 }
 
-/* 季節ラベルと説明 */
+/* 季節セクション */
 .label-with-description {
     display: flex;
     align-items: center;
     gap: 12px;
 }
 
-.form-description {
-    font-size: 14px;
-    color: #dc3545;
-    font-weight: 500;
-}
-
-/* 季節チェックボックス */
 .seasons {
     display: flex;
     gap: 20px;
@@ -158,26 +149,13 @@ h1 {
     accent-color: #f9c64f;
 }
 
-/* エラーメッセージのスタイル */
-.error-message {
-    color: #dc3545;
+/* 説明セクション */
+.form-description {
     font-size: 14px;
-    margin-top: 5px;
-    display: block;
+    color: #dc3545;
+    font-weight: 500;
 }
 
-/* エラー時の入力フィールドのスタイル */
-.form-input.error,
-.form-textarea.error {
-    border-color: #dc3545;
-}
-
-/* エラー時のチェックボックスのスタイル */
-.seasons input[type="checkbox"]:invalid {
-    border-color: #dc3545;
-}
-
-/* テキストエリア */
 .form-textarea {
     padding: 12px 16px;
     border: 1px solid #dee2e6;
@@ -238,4 +216,21 @@ h1 {
 
 .register-button:hover {
     background-color: #f9af02;
+}
+
+/* エラーメッセージ */
+.error-message {
+    color: #dc3545;
+    font-size: 14px;
+    margin-top: 5px;
+    display: block;
+}
+
+.form-input.error,
+.form-textarea.error {
+    border-color: #dc3545;
+}
+
+.seasons input[type="checkbox"]:invalid {
+    border-color: #dc3545;
 }

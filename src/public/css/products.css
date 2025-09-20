@@ -47,12 +47,6 @@ body {
     align-items: center;
 }
 
-/* 下部セクション（サイドバー + メイン） */
-.bottom-section {
-    display: flex;
-    gap: 20px;
-}
-
 h1 {
     font-size: 24px;
     font-weight: bold;
@@ -77,6 +71,12 @@ h1 {
 
 .add-product-button:hover {
     background-color: #e6850e;
+}
+
+/* 下部セクション（サイドバー + メインコンテンツ） */
+.bottom-section {
+    display: flex;
+    gap: 20px;
 }
 
 /* サイドバー */
@@ -152,7 +152,6 @@ h1 {
     border-color: #f9c64f;
 }
 
-/* ソートタグのスタイル */
 .sort-tag {
     display: inline-flex;
     align-items: center;
